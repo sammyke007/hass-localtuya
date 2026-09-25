@@ -40,7 +40,6 @@ from .const import (
     CONF_RESTORE_ON_RECONNECT,
     CONF_SCALING,
     CONF_OFFSET,
-    CONF_VIA_DEVICE,
     DOMAIN,
     RESTORE_STATES,
     DeviceConfig,
@@ -227,7 +226,7 @@ class LocalTuyaEntity(RestoreEntity, pytuya.ContextualLogger):
         if self._device.is_subdevice and self._device.id != self._device.gateway.id:
             gateway_identifier = (DOMAIN, f"local_{self._device.gateway.id}")
             if hasattr(dr, "async_get_device_id_by_identifier"):
-                device_info[CONF_VIA_DEVICE] = dr.async_get_device_id_by_identifier(
+                device_info["via_device_id"] = dr.async_get_device_id_by_identifier(
                     self.hass,
                     gateway_identifier,
                     config_entry_id=self._device._entry.entry_id,
